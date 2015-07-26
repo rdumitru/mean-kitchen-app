@@ -1,0 +1,32 @@
+{
+  "name": "MeanKitchen",
+  "version": "0.0.0",
+  "description": "A small kitchen web app using the MEAN stack.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rdumitru/mean-kitchen-app.git"
+  },
+  "keywords": [
+    "MEAN",
+    "MongoDB",
+    "Express.js",
+    "Angular.js",
+    "Node.js",
+    "kitchen",
+    "food",
+    "ingredients"
+  ],
+  "author": "Remus Dumitru",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/rdumitru/mean-kitchen-app/issues"
+  },
+  "dependencies": {
+    "express": "~4.13.1",
+    "jade": "~1.11.0"
+  }
+}
