@@ -18,10 +18,12 @@
         });
 
         // Routes.
+        var defaultCtrlAs = 'vm';
         $routeProvider
             .when('/', {
                 templateUrl: '/partials/main',
-                controller: 'MainCtrl'
+                controller: 'MainCtrl',
+                controllerAs: defaultCtrlAs
             });
     }
 
@@ -32,11 +34,5 @@
             $rootScope.bodyCss = current.bodyCss;
         });
     }]);
-
-    // TODO remove.
-    app.controller('MainCtrl', function ($scope) {
-        console.log('In MainCtrl...');
-        $scope.myVar = 'Hello Angular!';
-    });
 
 })();

@@ -1,3 +1,15 @@
 
-<h1>This is a partial!</h1>
-<h2>{{ myVar }}</h2>
+<div class="container">
+  <div class="jumbotron">
+    <h1>MEAN Kitchen</h1>
+    <p>A small web app using the MEAN stack.</p>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div ng-include="'/partials/featured-recipes'"></div>
+    </div>
+    <div class="col-md-6">
+      <div ng-include="'/partials/new-recipes'"></div>
+    </div>
+  </div>
+</div>

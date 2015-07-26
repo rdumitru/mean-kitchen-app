@@ -1,0 +1,6 @@
+.panel.panel-primary
+    .panel-heading.text-center New Recipes
+    .panel-body
+        .row(ng-repeat="recipe in vm.recipes | orderBy:'published':true | limitTo:10")
+            .col-md-3 {{ recipe.published | date:'MMM d' }}
+            .col-md-9 {{ recipe.name }}

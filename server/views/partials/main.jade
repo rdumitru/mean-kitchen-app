@@ -1,2 +1,11 @@
-h1 This is a partial!
-h2 {{ myVar }}
+.container
+    .jumbotron
+        h1 MEAN Kitchen
+        p A small web app using the MEAN stack.
+
+    .row
+        .col-md-6
+            div(ng-include="'/partials/featured-recipes'")
+
+        .col-md-6
+            div(ng-include="'/partials/new-recipes'")

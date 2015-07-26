@@ -58,17 +58,6 @@ db.once('open', function () {
     console.log('MEAN Kitchen DB opened...');
 });
 
-var MessageSchema = mongoose.Schema({
-    message: String
-});
-
-var Message = mongoose.model('Message', MessageSchema);
-
-var mongoMessage;
-Message.findOne().exec(function (err, messageDoc) {
-    mongoMessage = messageDoc.message;
-});
-
 //==============================================================================
 // Route handling.
 //==============================================================================
@@ -77,9 +66,7 @@ app.get('/partials/:partialPath', function (req, res) {
 });
 
 app.get('*', function (req, res) {
-    res.render('index', {
-        mongoMessage: mongoMessage
-    });
+    res.render('index', {});
 });
 
 //==============================================================================
