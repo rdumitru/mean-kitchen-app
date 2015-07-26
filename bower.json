@@ -1,0 +1,28 @@
+{
+  "name": "MeanKitchen",
+  "version": "0.0.0",
+  "homepage": "https://github.com/rdumitru/mean-kitchen-app",
+  "authors": [
+    "Remus Dumitru <remuque@gmail.com>"
+  ],
+  "description": "A small kitchen web app using the MEAN stack.",
+  "keywords": [
+    "MEAN",
+    "MongoDB",
+    "Express.js",
+    "Angular.js",
+    "Node.js"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "toastr": "~2.1.1",
+    "angular": "~1.4.3",
+    "angular-resource": "~1.4.3",
+    "angular-route": "~1.4.3",
+    "angular-bootstrap": "~0.13.1",
+    "bootstrap": "~3.3.5",
+    "angular-ui-router": "~0.2.15"
+  }
+}
