@@ -1,0 +1,7 @@
+.navbar-right
+    form.navbar-form
+        .form-group
+            input.form-control(placeholder="Email", ng-model="vm.user")
+        .form-group
+            input.form-control(type="password", placeholder="Password", ng-model="vm.pass")
+        button.btn.btn-primary(ng-click="vm.logIn()") Log In

@@ -21,7 +21,7 @@
         var defaultCtrlAs = 'vm';
         $routeProvider
             .when('/', {
-                templateUrl: '/partials/main',
+                templateUrl: '/partials/components/main/main',
                 controller: 'MainCtrl',
                 controllerAs: defaultCtrlAs
             });
