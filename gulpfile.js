@@ -17,7 +17,7 @@ gulp.task('merge-ng-scripts', function () {
     .pipe(sourceMaps.init())
     .pipe(concat('public/app.min.js'))
     .pipe(ngAnnotate())
-    .pipe(uglify())
+    // .pipe(uglify())
     .pipe(sourceMaps.write())
     .pipe(gulp.dest('.'))
 });

@@ -5,9 +5,9 @@
 
     app.config(Configuration);
 
-    Configuration.$inject = ['$logProvider', '$routeProvider', '$locationProvider'];
+    Configuration.$inject = ['$logProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider'];
 
-    function Configuration($logProvider, $routeProvider, $locationProvider) {
+    function Configuration($logProvider, $stateProvider, $urlRouterProvider, $locationProvider) {
         // Logging.
         $logProvider.debugEnabled(true);
 
@@ -17,13 +17,37 @@
             requireBase: false
         });
 
+        // Always default to home page.
+        $urlRouterProvider.otherwise('/app/home');
+
         // Routes.
         var defaultCtrlAs = 'vm';
-        $routeProvider
-            .when('/', {
-                templateUrl: '/partials/components/main/main',
-                controller: 'MainCtrl',
-                controllerAs: defaultCtrlAs
+        $stateProvider
+            .state('app', {
+                abstract: true,
+                url: '/app',
+                views: {
+                    nav: {
+                        templateUrl: '/partials/layout/navTmpl',
+                        controller: 'NavCtrl',
+                        controllerAs: defaultCtrlAs
+                    },
+                    '': {
+                        templateUrl: '/partials/layout/contentTmpl',
+                        controller: 'ContentCtrl',
+                        controllerAs: defaultCtrlAs
+                    },
+                    sidebar: {
+                        templateUrl: '/partials/layout/sidebarTmpl',
+                        controller: 'SidebarCtrl',
+                        controllerAs: defaultCtrlAs
+                    },
+                    footer: {
+                        templateUrl: '/partials/layout/footerTmpl',
+                        controller: 'FooterCtrl',
+                        controllerAs: defaultCtrlAs
+                    }
+                }
             });
     }
 

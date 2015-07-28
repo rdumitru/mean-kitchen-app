@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('app.main').config(Configuration);
+    angular.module('app.services').config(Configuration);
 
     Configuration.$inject = [];
 

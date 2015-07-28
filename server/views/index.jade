@@ -1,20 +1,15 @@
 extends ../includes/layout
-
 block main-content
-    .navbar.navbar-default.navbar-fixed-top
-        .container
-            .navbar-header
-                a.navbar-brand(href="/") MEAN Kitchen
-
-            .navbar-collapse.collapse
-                ul.nav.navbar-nav
-                    li
-                        a(href="/") Home
-                        
-                div(ng-include="'/partials/components/account/navbar-login'")
-
-    section.content
-        div(ng-view)
-
-    footer.container.text-center
-        p &copy; 2015 Remus Claudiu Dumitru.
+    // Navigation bar.
+    ui-view(name="nav")
+    // Content.
+    .container
+        .row
+            // Main content.
+            .col-md-9
+                div(ui-view)
+            // Sidebar.
+            .col-md-3
+                ui-view(name="sidebar")
+    // Footer.
+    ui-view(name="footer")

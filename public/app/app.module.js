@@ -9,9 +9,10 @@
         'ngRoute',
 
         // App components.
-        'app.main',
+        'app.home',
 
         // App shared.
-        'app.providers'
+        'app.providers',
+        'app.services'
     ]);
 })();

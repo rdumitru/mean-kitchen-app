@@ -1,0 +1,17 @@
+.navbar.navbar-default.navbar-fixed-top
+    .container
+        .navbar-header
+            a.navbar-brand(href="/") MEAN Kitchen
+
+        .navbar-collapse.collapse
+            ul.nav.navbar-nav
+                li
+                    a(href="/") Home
+
+            .navbar-right
+                form.navbar-form(ng-hide="vm.identity.isAuthenticated()")
+                    .form-group
+                        input.form-control(placeholder="Email", ng-model="vm.username")
+                    .form-group
+                        input.form-control(type="password", placeholder="Password", ng-model="vm.password")
+                    button.btn.btn-primary(ng-click="vm.logIn()") Log In

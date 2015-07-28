@@ -2,77 +2,65 @@
 // Node.js requires.
 //==============================================================================
 var express     = require('express'),
-    stylus      = require('stylus'),
-    logger      = require('morgan'),
-    bodyParser  = require('body-parser'),
-    mongoose    = require('mongoose');
+    mongoose    = require('mongoose'),
+    passport    = require('passport'),
+    LocalStrategy = require('passport-local').Strategy;
 
 //==============================================================================
 // Environment variable.
 //==============================================================================
 var env = process.env.NODE_ENV = (process.env.NODE_ENV || 'development');
-console.log('Mode: ' + env.toUpperCase() + '...');
+console.log('Environment: ' + env.toUpperCase() + '...');
 
 //==============================================================================
 // App config.
 //==============================================================================
 var app = express();
 
-// Jade config.
-app.set('views', __dirname + '/server/views');
-app.set('view engine', 'jade');
-if (env === 'development') {
-    app.set('view options', { pretty: true });
-}
-
-// Body parser config.
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-// Stylus config.
-var compile = function (str, path) {
-    return stylus(str).set('filename', path);
-};
-
-app.use(stylus.middleware({
-    src: __dirname + '/public',
-    compile: compile
-}));
-
-// Logger config.
-app.use(logger('dev'));
-
-// Static files config.
-app.use(express.static(__dirname + '/public'));
-
-// MongoDB config.
-if (env === 'development') {
-    mongoose.connect('mongodb://localhost/kitchen');
-} else {
-    mongoose.connect('mongodb://user:password@ds055762.mongolab.com:55762/kitchen');
-}
-
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error...'));
-db.once('open', function () {
-    console.log('MEAN Kitchen DB opened...');
-});
+var config = require('./server/config/config')[env];
+require('./server/config/express')(app, config);
+require('./server/config/mongoose')(config);
 
 //==============================================================================
 // Route handling.
 //==============================================================================
-app.get('/partials/*', function (req, res) {
-    res.render('../../public/app/' + req.params[0]);
+require('./server/config/routes')(app);
+
+//==============================================================================
+// Passport config.
+//==============================================================================
+var User = mongoose.model('User');
+passport.use(new LocalStrategy(
+    function (username, password, done) {
+        User.findOne({ userName: username }).exec(function (err, user) {
+            if (user) {
+                return done(null, user);
+            } else {
+                return done(null, false);
+            }
+        });
+    }
+));
+
+passport.serializeUser(function (user, done) {
+    if (user) {
+        done(null, user._id);
+    }
 });
 
-app.get('*', function (req, res) {
-    res.render('index', {});
+passport.deserializeUser(function (id, done) {
+    User.findOne({ _id: id }).exec(function (err, user) {
+        if (user) {
+            return done(null, user);
+        } else {
+            return done(null, false);
+        }
+    });
 });
 
 //==============================================================================
 // Listen.
 //==============================================================================
-var port = process.env.PORT || 3030;
-app.listen(port, function () {
-    console.log('Listening on port ' + port + '...');
+app.listen(config.port, function () {
+    console.log('Listening on port ' + config.port + '...');
 });

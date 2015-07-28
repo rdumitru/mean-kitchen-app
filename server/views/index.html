@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app">
   <head>
     <title>MEAN Kitchen</title>
     <!-- HTML5 routing.-->
@@ -11,24 +11,24 @@
     <link rel="stylesheet" href="/vendor/toastr/toastr.css">
     <link rel="stylesheet" href="/css/site.css">
   </head>
-  <body ng-app="app">
-    <div class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header"><a href="/" class="navbar-brand">MEAN Kitchen</a></div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="/">Home</a></li>
-          </ul>
-          <div ng-include="'/partials/components/account/navbar-login'"></div>
+  <body class="{{bodyCss ? 'page-' + bodyCss : 'page-default'}}">
+    <!-- Navigation bar.-->
+    <ui-view name="nav"></ui-view>
+    <!-- Content.-->
+    <div class="container">
+      <div class="row">
+        <!-- Main content.-->
+        <div class="col-md-9">
+          <div ui-view></div>
+        </div>
+        <!-- Sidebar.-->
+        <div class="col-md-3">
+          <ui-view name="sidebar"></ui-view>
         </div>
       </div>
     </div>
-    <section class="content">
-      <div ng-view></div>
-    </section>
-    <footer class="container text-center">
-      <p>&copy; 2015 Remus Claudiu Dumitru.</p>
-    </footer>
+    <!-- Footer.-->
+    <ui-view name="footer"></ui-view>
     <!-- jQuery-->
     <script type="text/javascript" src="/vendor/jquery/dist/jquery.js"></script>
     <!-- Angular.js-->
@@ -37,6 +37,8 @@
     <script type="text/javascript" src="/vendor/angular-bootstrap/ui-bootstrap.js"></script>
     <script type="text/javascript" src="/vendor/angular-route/angular-route.js"></script>
     <script type="text/javascript" src="/vendor/angular-ui-router/release/angular-ui-router.js"></script>
+    <!-- Toastr-->
+    <script type="text/javascript" src="/vendor/toastr/toastr.js"></script>
     <!-- Local Angular.js files.-->
     <script type="text/javascript" src="/app.min.js"></script>
   </body>

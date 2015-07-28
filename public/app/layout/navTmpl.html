@@ -1,0 +1,22 @@
+
+<div class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header"><a href="/" class="navbar-brand">MEAN Kitchen</a></div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="/">Home</a></li>
+      </ul>
+      <div class="navbar-right">
+        <form ng-hide="vm.identity.isAuthenticated()" class="navbar-form">
+          <div class="form-group">
+            <input placeholder="Email" ng-model="vm.username" class="form-control"/>
+          </div>
+          <div class="form-group">
+            <input type="password" placeholder="Password" ng-model="vm.password" class="form-control"/>
+          </div>
+          <button ng-click="vm.logIn()" class="btn btn-primary">Log In</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
