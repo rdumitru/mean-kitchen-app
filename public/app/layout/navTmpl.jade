@@ -15,3 +15,15 @@
                     .form-group
                         input.form-control(type="password", placeholder="Password", ng-model="vm.password")
                     button.btn.btn-primary(ng-click="vm.logIn()") Log In
+
+                ul.nav.navbar-nav(ng-show="vm.identity.isAuthenticated()")
+                    li.dropdown
+                        a.dropdown-toggle(href="", data-toggle="dropdown")
+                            | {{vm.identity.currentUser.firstName + " " + vm.identity.currentUser.lastName}}
+                            b.caret
+                        ul.dropdown-menu
+                            li(ng-show="vm.identity.currentUser.isAdmin()")
+                                // TODO: replace with ui-sref.
+                                a(href="/app/user-list") User Admin
+                            li
+                                a(href="", ng-click="vm.logOut()") Log Out

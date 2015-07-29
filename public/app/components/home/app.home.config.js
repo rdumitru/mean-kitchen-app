@@ -13,7 +13,7 @@
                 controller: 'HomeCtrl',
                 controllerAs: 'vm',
                 title: 'Home',
-                bodyCss: "home"
+                bodyCss: 'home'
             });
     }
 

@@ -22,32 +22,34 @@
 
         // Routes.
         var defaultCtrlAs = 'vm';
+        var mainViewsObj = {
+            nav: {
+                templateUrl: '/partials/layout/navTmpl',
+                controller: 'NavCtrl',
+                controllerAs: defaultCtrlAs
+            },
+            '': {
+                templateUrl: '/partials/layout/contentTmpl',
+                controller: 'ContentCtrl',
+                controllerAs: defaultCtrlAs
+            },
+            sidebar: {
+                templateUrl: '/partials/layout/sidebarTmpl',
+                controller: 'SidebarCtrl',
+                controllerAs: defaultCtrlAs
+            },
+            footer: {
+                templateUrl: '/partials/layout/footerTmpl',
+                controller: 'FooterCtrl',
+                controllerAs: defaultCtrlAs
+            }
+        };
+
         $stateProvider
             .state('app', {
                 abstract: true,
                 url: '/app',
-                views: {
-                    nav: {
-                        templateUrl: '/partials/layout/navTmpl',
-                        controller: 'NavCtrl',
-                        controllerAs: defaultCtrlAs
-                    },
-                    '': {
-                        templateUrl: '/partials/layout/contentTmpl',
-                        controller: 'ContentCtrl',
-                        controllerAs: defaultCtrlAs
-                    },
-                    sidebar: {
-                        templateUrl: '/partials/layout/sidebarTmpl',
-                        controller: 'SidebarCtrl',
-                        controllerAs: defaultCtrlAs
-                    },
-                    footer: {
-                        templateUrl: '/partials/layout/footerTmpl',
-                        controller: 'FooterCtrl',
-                        controllerAs: defaultCtrlAs
-                    }
-                }
+                views: mainViewsObj
             });
     }
 

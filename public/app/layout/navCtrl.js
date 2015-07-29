@@ -3,15 +3,16 @@
 
     angular.module('app').controller('NavCtrl', NavCtrl);
 
-    NavCtrl.$inject = ['logger', '$http', 'notificationProvider', 'identityService', 'authService'];
+    NavCtrl.$inject = ['logger', '$http', '$state', 'notificationProvider', 'identityService', 'authService'];
 
-    function NavCtrl(logger, $http, notificationProvider, identityService, authService) {
+    function NavCtrl(logger, $http, $state, notificationProvider, identityService, authService) {
         var vm = this;
 
         //=====================================================================
         // Expose functions.
         //=====================================================================
         vm.logIn = logIn;
+        vm.logOut = logOut;
 
         //=====================================================================
         // Initialization.
@@ -32,10 +33,22 @@
             authService.authenticateUser(vm.username, vm.password)
                 .then(function (success) {
                     if (success) {
-                        notificationProvider.success('You have successfully logged in!');
+                        notificationProvider.success('You have successfully logged in.');
                     } else {
                         notificationProvider.error('Invalid user name or password!');
                     }
+                });
+        }
+
+        function logOut() {
+            logger.debug(NavCtrl, logOut, 'Signing in...');
+
+            authService.logOutUser()
+                .then(function () {
+                    vm.username = '';
+                    vm.password = '';
+                    notificationProvider.info('You have been logged out.');
+                    $state.go('app.home');
                 });
         }
 

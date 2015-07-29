@@ -16,5 +16,6 @@ html(ng-app="app")
         link(rel="stylesheet", href="/css/site.css")
 
     body(class="{{bodyCss ? 'page-' + bodyCss : 'page-default'}}")
+        include currentUser
         block main-content
         include scripts

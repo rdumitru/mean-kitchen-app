@@ -3,16 +3,18 @@
 
     angular.module('app.services').factory('identityService', IdentityService);
 
-    IdentityService.$inject = ['logger'];
+    IdentityService.$inject = ['$window', 'logger', 'UserResource'];
 
-    function IdentityService(logger) {
+    function IdentityService($window, logger, UserResource) {
         //=====================================================================
-        // Expose functions.
+        // Handle bootstrapped current user object.
         //=====================================================================
-        return {
-            currentUser: null,
-            isAuthenticated: isAuthenticated
-        };
+        var currentUser = null;
+
+        if (!!$window.bootstrappedUserObject) {
+            currentUser = new UserResource();
+            angular.extend(currentUser, $window.bootstrappedUserObject);
+        }
 
         //=====================================================================
         // Public functions.
@@ -20,6 +22,19 @@
         function isAuthenticated() {
             return !!this.currentUser;
         }
+
+        function isAuthorized(role) {
+            return !!this.currentUser && this.currentUser.roles.indexOf(role) >= 0;
+        }
+
+        //=====================================================================
+        // Expose functions.
+        //=====================================================================
+        return {
+            currentUser: currentUser,
+            isAuthenticated: isAuthenticated,
+            isAuthorized: isAuthorized
+        };
     }
 
 })();

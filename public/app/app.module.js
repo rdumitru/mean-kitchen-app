@@ -10,9 +10,11 @@
 
         // App components.
         'app.home',
+        'app.userList',
 
         // App shared.
         'app.providers',
-        'app.services'
+        'app.services',
+        'app.resources'
     ]);
 })();

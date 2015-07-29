@@ -16,6 +16,16 @@
           </div>
           <button ng-click="vm.logIn()" class="btn btn-primary">Log In</button>
         </form>
+        <ul ng-show="vm.identity.isAuthenticated()" class="nav navbar-nav">
+          <li class="dropdown"><a href="" data-toggle="dropdown" class="dropdown-toggle">{{vm.identity.currentUser.firstName + " " + vm.identity.currentUser.lastName}}<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li ng-show="vm.identity.currentUser.isAdmin()">
+                <!-- TODO: replace with ui-sref.--><a href="/app/user-list">User Admin</a>
+              </li>
+              <li><a href="" ng-click="vm.logOut()">Log Out</a></li>
+            </ul>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
