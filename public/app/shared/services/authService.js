@@ -7,13 +7,9 @@
 
     function AuthService($http, $q, logger, identityService, UserResource) {
         //=====================================================================
-        // Expose functions.
+        // Variables.
         //=====================================================================
-        return {
-            authenticateUser: authenticateUser,
-            logOutUser: logOutUser,
-            authorizeCurrentUserForRoute: authorizeCurrentUserForRoute
-        };
+        var notAuthorizedObj = { notAuthorized: true };
 
         //=====================================================================
         // Public functions.
@@ -53,13 +49,67 @@
             return deferred.promise;
         }
 
+        function createUser(newUserData) {
+            var deferred = $q.defer();
+            var newUser = new UserResource(newUserData);
+
+            newUser.$save()
+                .then(function () {
+                    identityService.currentUser = newUser;
+                    deferred.resolve();
+                })
+                .catch(function (errorResponse) {
+                    deferred.reject(errorResponse.data.reason);
+                });
+
+            return deferred.promise;
+        }
+
+        function updateCurrentUser(newUserData) {
+            var deferred = $q.defer();
+
+            var clone = angular.copy(identityService.currentUser);
+            angular.extend(clone, newUserData);
+
+            clone.$update()
+                .then(function () {
+                    identityService.currentUser = clone;
+                    deferred.resolve();
+                })
+                .catch(function (errorResponse) {
+                    deferred.reject(errorResponse.data.reason);
+                });
+
+            return deferred.promise;
+        }
+
         function authorizeCurrentUserForRoute(role) {
             if (identityService.isAuthorized(role)) {
                 return true;
             } else {
-                return $q.reject({ notAuthorized: true });
+                return $q.reject(notAuthorizedObj);
             }
         }
+
+        function authorizeAuthenticatedUserForRoute() {
+            if (identityService.isAuthenticated()) {
+                return true;
+            } else {
+                return $q.reject(notAuthorizedObj);
+            }
+        }
+
+        //=====================================================================
+        // Expose functions.
+        //=====================================================================
+        return {
+            authenticateUser: authenticateUser,
+            logOutUser: logOutUser,
+            createUser: createUser,
+            updateCurrentUser: updateCurrentUser,
+            authorizeCurrentUserForRoute: authorizeCurrentUserForRoute,
+            authorizeAuthenticatedUserForRoute: authorizeAuthenticatedUserForRoute
+        };
     }
 
 })();

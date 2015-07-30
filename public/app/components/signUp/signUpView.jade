@@ -1,0 +1,30 @@
+.well
+    form.form-horizontal(name="form", ng-submit="form.$valid && vm.signUp()", novalidate)
+        fieldset
+            legend New User Information
+            .form-group(ng-class="vm.getClass(form, form.email)")
+                label.col-md-2.control-label(for="email") Email
+                .col-md-10
+                    input.form-control(name="email", type="email", placeholder="Email", ng-model="vm.email", required)
+
+            .form-group(ng-class="vm.getClass(form, form.password)")
+                label.col-md-2.control-label(for="password") Password
+                .col-md-10
+                    input.form-control(name="password", type="password", placeholder="Password", ng-model="vm.password", required)
+
+            .form-group(ng-class="vm.getClass(form, form.firstName)")
+                label.col-md-2.control-label(for="firstName") First Name
+                .col-md-10
+                    input.form-control(name="firstName", type="text", placeholder="First Name", ng-model="vm.firstName", required)
+
+            .form-group(ng-class="vm.getClass(form, form.lastName)")
+                label.col-md-2.control-label(for="lastName") Last Name
+                .col-md-10
+                    input.form-control(name="lastName", type="text", placeholder="Last Name", ng-model="vm.lastName", required)
+
+            .form-group
+                .col-md-10.col-md-offset-2
+                    .pull-right
+                        button.btn.btn-primary(type="submit", ng-disabled="vm.isLoading") Sign Up
+                        | &nbsp
+                        a.btn.btn-default(href="/") Cancel

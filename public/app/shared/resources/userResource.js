@@ -9,7 +9,9 @@
         //=====================================================================
         // Resource.
         //=====================================================================
-        var UserRes = $resource('/api/users/:id', {_id: '@id'});
+        var UserRes = $resource('/api/users/:id', {_id: '@id'}, {
+            update: { method: 'PUT', isArray: false }
+        });
 
         UserRes.prototype.isAdmin = function () {
             return this.roles && this.roles.indexOf('admin') >= 0;

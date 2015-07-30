@@ -10,7 +10,9 @@
 
         // App components.
         'app.home',
-        'app.userList',
+        'app.admin',
+        'app.profile',
+        'app.signUp',
 
         // App shared.
         'app.providers',

@@ -7,6 +7,8 @@
             ul.nav.navbar-nav
                 li
                     a(href="/") Home
+                li(ng-hide="vm.identity.isAuthenticated()")
+                    a(href="/app/sign-up") Sign Up
 
             .navbar-right
                 form.navbar-form(ng-hide="vm.identity.isAuthenticated()")
@@ -25,5 +27,7 @@
                             li(ng-show="vm.identity.currentUser.isAdmin()")
                                 // TODO: replace with ui-sref.
                                 a(href="/app/user-list") User Admin
+                            li
+                                a(href="/app/profile") Profile
                             li
                                 a(href="", ng-click="vm.logOut()") Log Out

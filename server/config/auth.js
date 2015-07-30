@@ -7,6 +7,8 @@ var passport = require('passport');
 // Auth helpers.
 //==============================================================================
 module.exports.authenticate = function (req, res, next) {
+    req.body.username = req.body.username.toLowerCase();
+
     var auth = passport.authenticate('local', function (err, user) {
         if (err) { return next(err); }
         if (!user) { res.send({ success: false }); }

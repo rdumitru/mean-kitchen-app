@@ -5,6 +5,7 @@
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li><a href="/">Home</a></li>
+        <li ng-hide="vm.identity.isAuthenticated()"><a href="/app/sign-up">Sign Up</a></li>
       </ul>
       <div class="navbar-right">
         <form ng-hide="vm.identity.isAuthenticated()" class="navbar-form">
@@ -22,6 +23,7 @@
               <li ng-show="vm.identity.currentUser.isAdmin()">
                 <!-- TODO: replace with ui-sref.--><a href="/app/user-list">User Admin</a>
               </li>
+              <li><a href="/app/profile">Profile</a></li>
               <li><a href="" ng-click="vm.logOut()">Log Out</a></li>
             </ul>
           </li>

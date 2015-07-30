@@ -1,12 +1,12 @@
 (function () {
     'use strict';
 
-    var appUserList = angular.module('app.userList');
+    var appAdmin = angular.module('app.admin');
 
     //=========================================================================
     // Config.
     //=========================================================================
-    appUserList.config(Configuration);
+    appAdmin.config(Configuration);
 
     Configuration.$inject = ['$stateProvider'];
 
@@ -22,7 +22,7 @@
         $stateProvider
             .state('app.userList', {
                 url: '/user-list',
-                templateUrl: '/partials/components/userList/userListView',
+                templateUrl: '/partials/components/admin/userListView',
                 controller: 'UserListCtrl',
                 controllerAs: 'vm',
                 resolve: routeRoleChecks.admin,
@@ -34,7 +34,7 @@
     //=========================================================================
     // Run.
     //=========================================================================
-    appUserList.run(Run);
+    appAdmin.run(Run);
 
     Run.$inject = ['$rootScope', '$state'];
 

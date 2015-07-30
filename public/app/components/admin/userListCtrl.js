@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('app.userList').controller('UserListCtrl', UserListCtrl);
+    angular.module('app.admin').controller('UserListCtrl', UserListCtrl);
 
     UserListCtrl.$inject = ['$scope', 'logger', 'UserResource'];
 
