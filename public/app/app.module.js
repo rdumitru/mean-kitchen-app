@@ -10,6 +10,9 @@
 
         // App components.
         'app.home',
+        'app.recipes',
+
+        // Admin components.
         'app.admin',
         'app.profile',
         'app.signUp',

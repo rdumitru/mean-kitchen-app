@@ -1,0 +1,16 @@
+.pull-right
+    form.form-inline
+        .form-group
+            input.form-control(ng-model="vm.search", placeholder="Search")
+
+table.table.table-hover.table-striped.table-condensed
+    thead
+        tr
+            th Name
+            th Cooking Time
+            th Ingredients
+    tbody
+        tr(ng-repeat="recipe in vm.recipes")
+            td {{recipe.name}}
+            td {{recipe.time}}
+            td {{recipe.ingredients}}

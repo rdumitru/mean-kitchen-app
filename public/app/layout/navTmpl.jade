@@ -1,14 +1,16 @@
 .navbar.navbar-default.navbar-fixed-top
     .container
         .navbar-header
-            a.navbar-brand(href="/") MEAN Kitchen
+            a.navbar-brand(ui-sref="app.home") MEAN Kitchen
 
         .navbar-collapse.collapse
             ul.nav.navbar-nav
                 li
-                    a(href="/") Home
+                    a(ui-sref="app.home") Home
+                li
+                    a(ui-sref="app.recipes") Recipes
                 li(ng-hide="vm.identity.isAuthenticated()")
-                    a(href="/app/sign-up") Sign Up
+                    a(ui-sref="app.signUp") Sign Up
 
             .navbar-right
                 form.navbar-form(ng-hide="vm.identity.isAuthenticated()")
@@ -25,9 +27,8 @@
                             b.caret
                         ul.dropdown-menu
                             li(ng-show="vm.identity.currentUser.isAdmin()")
-                                // TODO: replace with ui-sref.
-                                a(href="/app/user-list") User Admin
+                                a(ui-sref="app.userList") User Admin
                             li
-                                a(href="/app/profile") Profile
+                                a(ui-sref="app.profile") Profile
                             li
                                 a(href="", ng-click="vm.logOut()") Log Out

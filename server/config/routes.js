@@ -1,9 +1,10 @@
 //==============================================================================
 // Requires.
 //==============================================================================
-var auth        = require('./auth'),
+var mongoose    = require('mongoose')
+    auth        = require('./auth'),
     users       = require('../controllers/users'),
-    mongoose    = require('mongoose'),
+    recipes     = require('../controllers/recipes'),
     User        = mongoose.model('User');
 
 //==============================================================================
@@ -14,6 +15,9 @@ module.exports = function (app) {
     app.get('/api/users', auth.requiresRole('admin'), users.getUsers);
     app.post('/api/users', users.createUser);
     app.put('/api/users', users.updateUser);
+
+    // Recipes.
+    app.get('/api/recipes', recipes.getRecipes);
 
     // Partials.
     app.get('/partials/*', function (req, res) {
@@ -27,6 +31,11 @@ module.exports = function (app) {
     app.post('/logout', function (req, res) {
         req.logout();
         res.end();
+    });
+
+    // Handle all other API calls.
+    app.all('/api/*', function (req, res) {
+        res.send(404);
     });
 
     // General.

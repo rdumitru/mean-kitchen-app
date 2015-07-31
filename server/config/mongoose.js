@@ -2,7 +2,8 @@
 // Requires.
 //==============================================================================
 var mongoose    = require('mongoose'),
-    userModel   = require('../models/User');
+    userModel   = require('../models/User'),
+    recipeModel = require('../models/Recipe');
 
 //==============================================================================
 // Exports.
@@ -17,4 +18,5 @@ module.exports = function (config) {
     });
 
     userModel.createDefaultUsers();
+    recipeModel.createDefaultRecipes();
 };

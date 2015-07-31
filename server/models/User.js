@@ -2,7 +2,8 @@
 // Requires.
 //==============================================================================
 var mongoose    = require('mongoose'),
-    encrypt     = require('../util/encryption');
+    encrypt     = require('../util/encryption'),
+    timeStamp   = require('../util/timeStamp');
 
 //==============================================================================
 // Implementation.
@@ -19,8 +20,12 @@ var userSchema = mongoose.Schema({
     },
     salt: { type: String, required: requiredStr },
     hashedPassword: { type: String, required: requiredStr },
-    roles: [String]
+    roles: [String],
+    updated: Date,
+    created: Date
 });
+
+userSchema.pre('save', timeStamp.addTimeStamp);
 
 userSchema.methods = {
     authenticate: function (passwordToMatch) {
@@ -32,6 +37,7 @@ userSchema.methods = {
     }
 };
 
+// Model.
 var User = mongoose.model('User', userSchema);
 
 function createDefaultUsers() {
