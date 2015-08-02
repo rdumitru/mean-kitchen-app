@@ -11,3 +11,8 @@ module.exports.getRecipes = function (req, res) {
         res.send(collection);
     });
 };
+module.exports.getRecipeById = function (req, res) {
+    Recipe.findOne({ _id: req.params.id }).exec(function (err, recipe) {
+        res.send(recipe);
+    });
+};

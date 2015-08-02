@@ -12,7 +12,7 @@
 
         function init() {
             logger.debug(SidebarCtrl, init, 'Initializing...');
-            vm.test = 'Test Recipe';
+            vm.test = 'test string';
         }
 
     }

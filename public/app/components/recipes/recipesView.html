@@ -1,24 +1,44 @@
 
-<div class="pull-right">
-  <form class="form-inline">
-    <div class="form-group">
-      <input ng-model="vm.search" placeholder="Search" class="form-control"/>
-    </div>
+<div class="well recipe-filters">
+  <form name="form" ng-submit="form.$valid &amp;&amp; vm.update()" novalidate="novalidate" class="form-horizontal">
+    <fieldset>
+      <legend>Recipe Filters</legend>
+      <div class="form-group">
+        <label for="search" class="col-md-2 control-label">Search</label>
+        <div class="col-md-10">
+          <input name="search" type="text" placeholder="Search" ng-model="vm.search" ng-change="vm.update()" ng-model-options="vm.debounce" class="form-control"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="maxTime" class="col-md-2 control-label">Max Time</label>
+        <div class="col-md-10">
+          <input name="maxTime" type="number" min="0" placeholder="Maximum Cooking Time in Minutes" ng-model="vm.maxTime" ng-change="vm.update()" ng-model-options="vm.debounce" class="form-control"/>
+        </div>
+      </div>
+    </fieldset>
   </form>
 </div>
-<table class="table table-hover table-striped table-condensed">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Cooking Time</th>
-      <th>Ingredients</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="recipe in vm.recipes">
-      <td>{{recipe.name}}</td>
-      <td>{{recipe.time}}</td>
-      <td>{{recipe.ingredients}}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="recipe-list">
+  <div ng-repeat="recipe in vm.pagedRecipes" ui-sref="app.recipeDetails({ id: recipe._id })" class="well">
+    <div class="row">
+      <div class="col-md-8">
+        <h4 class="title">{{recipe.name}}</h4>
+      </div>
+      <div class="col-md-4">
+        <h4 class="pull-right">{{recipe.time}} minutes</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12"><span>{{vm.getMainIngredientsStr(recipe.ingredients)}}</span></div>
+    </div>
+  </div>
+  <div ng-show="vm.pagedRecipes.length &lt;= 0 &amp;&amp; vm.recipes.length &gt; 0" class="well">
+    <h4>Sorry, nothing matched your filter term.</h4>
+  </div>
+  <div ng-show="vm.recipes.length &lt;= 0" class="well">
+    <h4>Sorry, we currently have no recipes for you.</h4>
+  </div>
+</div>
+<div class="text-center">
+  <pagination ng-show="vm.filteredRecipes.length &gt; vm.pageSize" ng-model="vm.pageNumber" ng-change="vm.update()" total-items="vm.filteredRecipes.length" items-per-page="vm.pageSize" direction-links="true" boundary-links="true" max-size="10" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+</div>

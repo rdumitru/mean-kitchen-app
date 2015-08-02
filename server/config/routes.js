@@ -18,6 +18,7 @@ module.exports = function (app) {
 
     // Recipes.
     app.get('/api/recipes', recipes.getRecipes);
+    app.get('/api/recipes/:id', recipes.getRecipeById);
 
     // Partials.
     app.get('/partials/*', function (req, res) {

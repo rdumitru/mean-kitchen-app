@@ -1,16 +1,45 @@
-.pull-right
-    form.form-inline
-        .form-group
-            input.form-control(ng-model="vm.search", placeholder="Search")
+.well.recipe-filters
+    form.form-horizontal(name="form", ng-submit="form.$valid && vm.update()", novalidate)
+        fieldset
+            legend Recipe Filters
+            .form-group
+                label.col-md-2.control-label(for="search") Search
+                .col-md-10
+                    input.form-control(
+                        name="search", type="text", placeholder="Search",
+                        ng-model="vm.search", ng-change="vm.update()", ng-model-options="vm.debounce"
+                    )
 
-table.table.table-hover.table-striped.table-condensed
-    thead
-        tr
-            th Name
-            th Cooking Time
-            th Ingredients
-    tbody
-        tr(ng-repeat="recipe in vm.recipes")
-            td {{recipe.name}}
-            td {{recipe.time}}
-            td {{recipe.ingredients}}
+            .form-group
+                label.col-md-2.control-label(for="maxTime") Max Time
+                .col-md-10
+                    input.form-control(
+                        name="maxTime", type="number", min="0", placeholder="Maximum Cooking Time in Minutes",
+                        ng-model="vm.maxTime", ng-change="vm.update()", ng-model-options="vm.debounce"
+                    )
+
+.recipe-list
+    .well(ng-repeat="recipe in vm.pagedRecipes", ui-sref="app.recipeDetails({ id: recipe._id })")
+        .row
+            .col-md-8
+                h4.title {{recipe.name}}
+            .col-md-4
+                h4.pull-right {{recipe.time}} minutes
+        .row
+            .col-md-12
+                span {{vm.getMainIngredientsStr(recipe.ingredients)}}
+
+    .well(ng-show="vm.pagedRecipes.length <= 0 && vm.recipes.length > 0")
+        h4 Sorry, nothing matched your filter term.
+
+    .well(ng-show="vm.recipes.length <= 0")
+        h4 Sorry, we currently have no recipes for you.
+
+.text-center
+    pagination(
+        ng-show="vm.filteredRecipes.length > vm.pageSize"
+        ng-model="vm.pageNumber", ng-change="vm.update()",
+        total-items="vm.filteredRecipes.length", items-per-page="vm.pageSize",
+        direction-links="true", boundary-links="true", max-size="10",
+        previous-text!="&lsaquo;", next-text!="&rsaquo;", first-text!="&laquo;", last-text!="&raquo;"
+    )

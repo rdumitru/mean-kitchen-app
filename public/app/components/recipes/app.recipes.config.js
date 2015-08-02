@@ -14,6 +14,14 @@
                 controllerAs: 'vm',
                 title: 'Recipes',
                 bodyCss: 'recipes'
+            })
+            .state('app.recipeDetails', {
+                url: '/recipe/:id',
+                templateUrl: '/partials/components/recipes/recipeDetailsView',
+                controller: 'RecipeDetailsCtrl',
+                controllerAs: 'vm',
+                title: 'Recipe Details',
+                bodyCss: 'recipe-details'
             });
     }
 

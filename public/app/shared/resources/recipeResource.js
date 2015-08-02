@@ -9,7 +9,7 @@
         //=====================================================================
         // Resource.
         //=====================================================================
-        var RecipeRes = $resource('/api/recipes/:id', {_id: '@id'}, {
+        var RecipeRes = $resource('/api/recipes/:_id', { _id: '@id' }, {
             update: { method: 'PUT', isArray: false }
         });
 
