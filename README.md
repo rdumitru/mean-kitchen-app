@@ -52,13 +52,16 @@ https://sheltered-sea-8819.herokuapp.com
 
 There is a separate production database hosted by MongoLab.
 
-### Pre-defined Users
+### Users
 There are two predefined users on the system:
 ```
 USERNAME    PASSWORD
 admin       admin
 user        user
 ```
+
+Admin users can view existing users.
+There is also the ability to create new users by going to the Sign Up page when logged out.
 
 ### Pre-populated Data
 The database is pre-populated with dummy recipes, allowing users to test any of the required features.
@@ -68,8 +71,8 @@ Login is required to access advanced features, such as starring recipes.
 
 ### Project Structure.
 The project comprises of two parts:
-1. The client side code (public folder).
-2. The server side code (server folder).
+1. The client side code (public folder)
+2. The server side code (server folder)
 
 ### Client Code
 The client side code is merged and minified (commented out for the sake of simplicity)
