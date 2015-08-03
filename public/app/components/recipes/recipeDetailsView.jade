@@ -7,6 +7,7 @@
             .row
                 .col-md-12
                     button.btn.btn-primary(ng-show="vm.identity.isAuthenticated()", ng-click="vm.toggleStar()") {{vm.recipe.isStarred() ? 'Unstar' : 'Star' }}
+                    h6(ng-show="!vm.identity.isAuthenticated()") Please sign in to star recipes.
         .col-md-4
             h3.pull-right {{vm.recipe.time}} minutes
 
