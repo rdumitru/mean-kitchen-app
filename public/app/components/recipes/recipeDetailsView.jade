@@ -1,7 +1,12 @@
 .well.recipe-details(ng-hide="!vm.recipe._id")
     .row
         .col-md-8.title
-            h3 {{vm.recipe.name}}
+            .row
+                .col-md-12
+                    h3 {{vm.recipe.isStarred() ? '★' : '☆' }} {{vm.recipe.name}}
+            .row
+                .col-md-12
+                    button.btn.btn-primary(ng-show="vm.identity.isAuthenticated()", ng-click="vm.toggleStar()") {{vm.recipe.isStarred() ? 'Unstar' : 'Star' }}
         .col-md-4
             h3.pull-right {{vm.recipe.time}} minutes
 

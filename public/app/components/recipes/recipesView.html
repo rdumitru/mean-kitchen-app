@@ -15,6 +15,15 @@
           <input name="maxTime" type="number" min="0" placeholder="Maximum Cooking Time in Minutes" ng-model="vm.maxTime" ng-change="vm.update()" ng-model-options="vm.debounce" class="form-control"/>
         </div>
       </div>
+      <div ng-show="vm.identity.isAuthenticated()" class="form-group">
+        <div class="col-md-10 col-md-offset-2">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" ng-change="vm.update()" ng-model="vm.starred"/>Starred
+            </label>
+          </div>
+        </div>
+      </div>
     </fieldset>
   </form>
 </div>
@@ -32,7 +41,11 @@
       <div class="col-md-12"><span>{{vm.getMainIngredientsStr(recipe.ingredients)}}</span></div>
     </div>
   </div>
-  <div ng-show="vm.pagedRecipes.length &lt;= 0 &amp;&amp; vm.recipes.length &gt; 0" class="well">
+  <div ng-show="vm.starred &amp;&amp; vm.starredRecipes.length &lt;= 0 &amp;&amp; vm.recipes.length &gt; 0" class="well">
+    <h4>Sorry, you don't currently have any starred recipes.</h4>
+    <h4>Get started by starring recipes you like.</h4>
+  </div>
+  <div ng-show="(!vm.starred || vm.starredRecipes.length &gt; 0) &amp;&amp; vm.pagedRecipes.length &lt;= 0 &amp;&amp; vm.recipes.length &gt; 0" class="well">
     <h4>Sorry, nothing matched your filter term.</h4>
   </div>
   <div ng-show="vm.recipes.length &lt;= 0" class="well">

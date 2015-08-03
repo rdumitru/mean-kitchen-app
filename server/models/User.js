@@ -43,38 +43,29 @@ var User = mongoose.model('User', userSchema);
 function createDefaultUsers() {
     User.find({}).exec(function (err, collection) {
         if (collection.length <= 0) {
+            console.log('Creating default users...');
             var salt, hash;
 
             salt = encrypt.createSalt();
-            hash = encrypt.hashPassword(salt, 'remus');
+            hash = encrypt.hashPassword(salt, 'admin');
             User.create({
-                firstName: 'Remus',
-                lastName: 'Dumitru',
-                username: 'remus',
+                firstName: 'Admin',
+                lastName: 'Smith',
+                username: 'admin',
                 salt: salt,
                 hashedPassword: hash,
                 roles: ['admin']
             });
 
             salt = encrypt.createSalt();
-            hash = encrypt.hashPassword(salt, 'irina');
+            hash = encrypt.hashPassword(salt, 'user');
             User.create({
-                firstName: 'Irina',
-                lastName: 'Predut',
-                username: 'irina',
+                firstName: 'User',
+                lastName: 'Smith',
+                username: 'user',
                 salt: salt,
                 hashedPassword: hash,
                 roles: []
-            });
-
-            salt = encrypt.createSalt();
-            hash = encrypt.hashPassword(salt, 'gelu');
-            User.create({
-                firstName: 'Gelu',
-                lastName: 'Papagelu',
-                username: 'gelu',
-                salt: salt,
-                hashedPassword: hash
             });
         }
     });

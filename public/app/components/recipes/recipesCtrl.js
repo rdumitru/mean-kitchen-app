@@ -3,9 +3,9 @@
 
     angular.module('app.recipes').controller('RecipesCtrl', RecipesCtrl);
 
-    RecipesCtrl.$inject = ['$scope', 'logger', 'RecipeResource'];
+    RecipesCtrl.$inject = ['$scope', 'logger', 'RecipeResource', 'identityService'];
 
-    function RecipesCtrl($scope, logger, RecipeResource) {
+    function RecipesCtrl($scope, logger, RecipeResource, identityService) {
         var vm = this;
 
         //=====================================================================
@@ -21,6 +21,7 @@
         vm.getFiltered = getFiltered;
         vm.update = update;
         vm.getMainIngredientsStr = getMainIngredientsStr;
+        vm.identity = identityService;
 
         //=====================================================================
         // Initialization.
@@ -38,6 +39,14 @@
         //=====================================================================
         // Exposed functions implementation.
         //=====================================================================
+        function getStarred() {
+            if (!identityService.currentUser) return [];
+
+            return _.filter(vm.recipes, function (recipe) {
+                return recipe.starredByUsers.indexOf(identityService.currentUser._id) >= 0
+            });
+        }
+
         function getFiltered() {
             var lowerCaseSearch = vm.search ? vm.search.toLowerCase() : null;
 
@@ -50,13 +59,16 @@
 
                 var maxTimeResult = !vm.maxTime || recipe.time <= vm.maxTime;
 
-                return searchResult && maxTimeResult;
+                var starredResult = !vm.starred || recipe.starredByUsers.indexOf(identityService.currentUser._id) >= 0;
+
+                return searchResult && maxTimeResult && starredResult;
             });
 
             return result;
         }
 
         function update() {
+            vm.starredRecipes = getStarred();
             vm.filteredRecipes = getFiltered();
 
             // Calculate page.

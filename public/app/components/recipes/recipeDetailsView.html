@@ -2,7 +2,16 @@
 <div ng-hide="!vm.recipe._id" class="well recipe-details">
   <div class="row">
     <div class="col-md-8 title">
-      <h3>{{vm.recipe.name}}</h3>
+      <div class="row">
+        <div class="col-md-12">
+          <h3>{{vm.recipe.isStarred() ? '★' : '☆' }} {{vm.recipe.name}}</h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <button ng-show="vm.identity.isAuthenticated()" ng-click="vm.toggleStar()" class="btn btn-primary">{{vm.recipe.isStarred() ? 'Unstar' : 'Star' }}</button>
+        </div>
+      </div>
     </div>
     <div class="col-md-4">
       <h3 class="pull-right">{{vm.recipe.time}} minutes</h3>

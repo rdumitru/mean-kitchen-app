@@ -3,15 +3,17 @@
 
     angular.module('app.recipes').controller('RecipeDetailsCtrl', RecipeDetailsCtrl);
 
-    RecipeDetailsCtrl.$inject = ['$scope', 'logger', '$stateParams', 'RecipeResource'];
+    RecipeDetailsCtrl.$inject = ['$scope', '$http', 'logger', '$stateParams', 'RecipeResource', 'identityService', 'notificationProvider'];
 
-    function RecipeDetailsCtrl($scope, logger, $stateParams, RecipeResource) {
+    function RecipeDetailsCtrl($scope, $http, logger, $stateParams, RecipeResource, identityService, notificationProvider) {
         var vm = this;
 
         //=====================================================================
         // Exposed functions.
         //=====================================================================
         vm.getIngredientDisplay = getIngredientDisplay;
+        vm.toggleStar = toggleStar;
+        vm.identity = identityService;
 
         //=====================================================================
         // Initialization.
@@ -43,6 +45,19 @@
             }
 
             return quantityStr + nameStr;
+        }
+
+        function toggleStar() {
+            var url = '/api/recipes/' + vm.recipe._id + '/toggle-star';
+            var promise = $http.put(url, { star: !vm.recipe.isStarred() });
+
+            promise
+                .then(function (response) {
+                    vm.recipe.starredByUsers = response.data.starredByUsers;
+                })
+                .catch(function (errorResponse) {
+                    notificationProvider.error('Failed to update recipe.');
+                });
         }
     }
 })();

@@ -17,6 +17,12 @@
                         name="maxTime", type="number", min="0", placeholder="Maximum Cooking Time in Minutes",
                         ng-model="vm.maxTime", ng-change="vm.update()", ng-model-options="vm.debounce"
                     )
+            .form-group(ng-show="vm.identity.isAuthenticated()")
+                .col-md-10.col-md-offset-2
+                    .checkbox
+                        label
+                            input(type="checkbox", ng-change="vm.update()", ng-model="vm.starred")
+                            | Starred
 
 .recipe-list
     .well(ng-repeat="recipe in vm.pagedRecipes", ui-sref="app.recipeDetails({ id: recipe._id })")
@@ -29,7 +35,11 @@
             .col-md-12
                 span {{vm.getMainIngredientsStr(recipe.ingredients)}}
 
-    .well(ng-show="vm.pagedRecipes.length <= 0 && vm.recipes.length > 0")
+    .well(ng-show="vm.starred && vm.starredRecipes.length <= 0 && vm.recipes.length > 0")
+        h4 Sorry, you don't currently have any starred recipes.
+        h4 Get started by starring recipes you like.
+
+    .well(ng-show="(!vm.starred || vm.starredRecipes.length > 0) && vm.pagedRecipes.length <= 0 && vm.recipes.length > 0")
         h4 Sorry, nothing matched your filter term.
 
     .well(ng-show="vm.recipes.length <= 0")

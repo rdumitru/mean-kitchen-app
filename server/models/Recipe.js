@@ -25,6 +25,7 @@ var recipeSchema = mongoose.Schema({
         isMain: Boolean
     }],
     url: String,
+    starredByUsers: [String],
     updated: Date,
     created: Date
 });
